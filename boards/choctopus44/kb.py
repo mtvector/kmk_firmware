@@ -1,37 +1,35 @@
 from kmk.kmk_keyboard import KMKKeyboard as _KMKKeyboard
-from kmk.quickpin.pro_micro.avr_promicro import translate as avr
-from kmk.quickpin.pro_micro.boardsource_blok import pinout as pins
+from kmk.quickpin.pro_micro.nice_nano_v2 import pinout as pins
 from kmk.scanners import DiodeOrientation
-
 
 class KMKKeyboard(_KMKKeyboard):
     col_pins = (
-        pins[avr['C6']],
-        pins[avr['D7']],
-        pins[avr['E6']],
-        pins[avr['B5']],
+        pins[6],
+        pins[7],
+        pins[8],
+        pins[9],
+        pins[10],
+        pins[11],
     )
     row_pins = (
-        pins[avr['F6']],
-        pins[avr['F7']],
-        pins[avr['B1']],
-        pins[avr['B3']],
-        pins[avr['B2']],
-        pins[avr['B6']],
+        pins[19],
+        pins[18],
+        pins[17],
+        pins[16],
+        pins[15],
+        pins[14],
+        pins[13],
+        pins[2],
     )
-    diode_orientation = DiodeOrientation.COLUMNS
-    data_pin = pins[avr['D2']]
-    # left_encoder_pin_0 = pins[avr['F5']]
-    # left_encoder_pin_1 = pins[avr['F4']]
-    # right_encoder_pin_0 = pins[avr['F4']]
-    # right_encoder_pin_1 = pins[avr['F5']]
-    rgb_pixel_pin = pins[avr['D3']]
+    diode_orientation = DiodeOrientation.ROW2COL
+    data_pin = pins[1]
+    encoder_pin_0 = pins[4]
+    encoder_pin_1 = pins[5]
 
     # fmt: off
-    coord_mapping = [
-        0,  1,  2,  3,  4,  5,                    29, 28, 27, 26, 25, 24,
-        6,  7,  8,  9,  10, 11,                   35, 34, 33, 32, 31, 30,
-        12, 13, 14, 15, 16, 17, 23,           47, 41, 40, 39, 38, 37, 36,
-                        19, 20, 21, 22,   46, 45, 44, 43,
-    ]
+    coord_mapping = [0, 1, 2, 3, 4, 5,         24, 25, 26, 27, 28, 29, 
+                     8, 9, 10, 11, 12, 13,     32, 33, 34, 35, 36, 37, 
+                     16, 17, 18, 19, 20, 21,   40, 41, 42, 43, 44, 45, 
+                     50, 51, 52, 53,           56, 57, 58, 59]
+
     # fmt: on

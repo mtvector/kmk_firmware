@@ -1,80 +1,84 @@
-from kb import KMKKeyboard
+import board
+from kmk.quickpin.pro_micro.nice_nano_v2 import pinout as pins
 
-from kmk.extensions.media_keys import MediaKeys
-from kmk.extensions.rgb import RGB
+from kb import KMKKeyboard
 from kmk.keys import KC
-from kmk.modules.capsword import CapsWord
-from kmk.modules.cg_swap import CgSwap
+from kmk.modules.holdtap import HoldTap
 from kmk.modules.layers import Layers
-from kmk.modules.oneshot import OneShot
+from kmk.modules.mouse_keys import MouseKeys
+from kmk.modules.combos import Combos, Chord, Sequence
+from kmk.modules.encoder import EncoderHandler
+from kmk.extensions.media_keys import MediaKeys
 
 keyboard = KMKKeyboard()
+
+layers = Layers()
+holdtap = HoldTap()
+mouse_key = MouseKeys()
+combos = Combos()
+encoder_handler = EncoderHandler()
+
+keyboard.modules = [layers, combos, holdtap, mouse_key,encoder_handler]
 keyboard.extensions.append(MediaKeys())
 
-keyboard.modules.append(CapsWord())
-keyboard.modules.append(CgSwap())
-keyboard.modules.append(Layers())
-keyboard.modules.append(OneShot())
-split = Split(data_pin=keyboard.data_pin)
-keyboard.modules.append(split)
+encoder_handler.pins = (
+    # reversed direction encoder with no button handling and divisor of 2
+    (pins[6], pins[7], None, True, 2,), # encoder #2
+    )
 
-OS_LSFT = KC.OS(KC.LSFT)
-LYR3 = KC.MO(3)
-LYR4 = KC.MO(4)
-LYR5 = KC.MO(5)
-COPY = KC.LCTL(KC.C)
-CUT = KC.LCTL(KC.X)
-PSTE = KC.LCTL(KC.V)
-UNDO = KC.LCTL(KC.Z)
-REDO = KC.LCTL(KC.Y)
-OS_RALT = KC.OS(KC.RALT)
-RGB_M_P = KC.RGB_MODE_PLAIN
-RGB_M_B = KC.RGB_MODE_BREATHE
-RGB_M_R = KC.RGB_MODE_RAINBOW
-RGB_M_BR = KC.RGB_MODE_BREATHE_RAINBOW
-RGB_M_K = KC.RGB_MODE_KNIGHT
-RGB_M_S = KC.RGB_MODE_SWIRL
+# Cleaner key names
+_______ = KC.TRNS
+XXXXXXX = KC.NO
 
-# fmt:off
-keyboard.keymap = [
-    [   #QWERTY
-        KC.GRV,  KC.Q,    KC.W,    KC.E,    KC.R, KC.T,                  KC.Y, KC.U, KC.I,    KC.O,    KC.P,    KC.BSPC,
-        KC.TAB,  KC.A,    KC.S,    KC.D,    KC.F, KC.G,                  KC.H, KC.J, KC.K,    KC.L,    KC.SCLN, KC.ENT,
-        KC.LCTL, KC.Z,    KC.X,    KC.C,    KC.V, KC.B, KC.ESC,   KC.CW, KC.N, KC.M, KC.COMM, KC.DOT,  KC.SLSH, KC.QUOT,
-                 KC.LGUI, KC.LALT, OS_LSFT, LYR3,                              LYR4, KC.SPC,  KC.LALT, KC.RGUI,
-    ],
-    [   #DVORAK
-        KC.TRNS, KC.QUOT, KC.COMM, KC.DOT,  KC.P,    KC.Y,                     KC.F,    KC.G,    KC.C,    KC.R,    KC.L,   KC.TRNS,
-        KC.TRNS, KC.TRNS, KC.O,    KC.E,    KC.U,    KC.I,                     KC.D,    KC.H,    KC.T,    KC.N,    KC.S,   KC.TRNS,
-        KC.TRNS, KC.SCLN, KC.Q,    KC.J,    KC.K,    KC.X, KC.TRNS,   KC.TRNS, KC.B,    KC.TRNS,    KC.W,    KC.V,    KC.Z,   KC.SLSH,
-                 KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,                                    KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,
-    ],
-    [   #COLEMAK_DH
-        KC.TRNS, KC.Q,    KC.W,    KC.F,    KC.P,    KC.B,                     KC.J,    KC.L,    KC.U,    KC.Y,    KC.SCLN, KC.TRNS,
-        KC.TRNS, KC.TRNS, KC.R,    KC.S,    KC.T,    KC.G,                     KC.M,    KC.N,    KC.E,    KC.I,    KC.O,    KC.TRNS,
-        KC.TRNS, KC.Z,    KC.X,    KC.C,    KC.D,    KC.V, KC.TRNS,   KC.TRNS, KC.K,    KC.H,    KC.COMM, KC.DOT,  KC.SLSH, KC.QUOT,
-                 KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,                                    KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,
-    ],
-    [
-        COPY,    KC.N1,   KC.N2,   KC.N3,   KC.N4,   KC.N5,               KC.N6,   KC.N7,   KC.N8,   KC.N9,   KC.N0,   KC.TRNS,
-        CUT,     KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, PSTE,                KC.PGUP, KC.LEFT, KC.UP,   KC.DOWN, KC.RGHT, KC.PGDN,
-        KC.TRNS, KC.F1,   KC.F2,   KC.F3,   KC.F4,   KC.F5, UNDO,   REDO, KC.F6,   KC.F7,   KC.F8,   KC.F9,   KC.F10,  KC.RCTL,
-                 KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,                               LYR5,    KC.TRNS, KC.TRNS, KC.TRNS,
-    ],
-    [
-        KC.HOME, KC.EXLM, KC.AT,   KC.HASH, KC.DLR,  KC.PERC,                     KC.CIRC, KC.AMPR, KC.ASTR, KC.LPRN, KC.RPRN, KC.DEL,
-        KC.END,  KC.LGUI, KC.LALT, KC.LCTL, KC.LSFT, KC.INS,                      KC.LBRC, KC.RBRC, KC.MINS, KC.EQL,  KC.BSLS, KC.TRNS,
-        KC.TRNS, KC.PIPE, KC.UNDS, KC.PLUS, KC.LCBR, KC.RCBR, OS_RALT,    KC.APP, KC.MUTE, KC.VOLD, KC.VOLU, KC.MPLY, KC.NO,   KC.RCTL,
-        KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS, LYR5,                                          KC.TRNS, KC.TRNS, KC.TRNS, KC.TRNS,
-    ],
-    [
-        KC.NO, KC.DF(0), KC.DF(1), KC.DF(2), KC.CG_SWAP, KC.NO,                         KC.NO,   KC.F11,     KC.F12,     KC.PSCR,    KC.NO,      KC.RLD,
-        KC.NO, KC.NO,    KC.BRID,  KC.BRIU,  KC.CG_NORM, KC.NO,                         KC.NO,   KC.RGB_VAI, KC.RGB_HUI, KC.RGB_SAI, KC.RGB_ANI, KC.NO,
-        KC.NO, KC.LGUI,  KC.LALT,  KC.LCTL,  KC.LSFT,    RGB_M_P, KC.NO,    KC.RGB_TOG, RGB_M_B, KC.RGB_VAD, KC.RGB_HUD, KC.RGB_SAD, KC.RGB_AND, KC.RESET,
-               KC.NO,    RGB_M_BR, RGB_M_R,  KC.TRNS,                                            KC.TRNS,    RGB_M_K,    RGB_M_K,    KC.NO,
-    ]
+combos.combos = [
+    Combo((KC.LSFT, KC.SPC), KC.UNDERSCORE),
+    Combo((KC.RSFT, KC.SPC), KC.UNDERSCORE),
+    Combo((KC.LCTRL, KC.SPC), KC.TAB),
+    Combo((KC.RCTRL, KC.SPC), KC.TAB),
+    Combo((KC.LSFT, KC.BSPC), KC.DEL),
+    Combo((KC.RSFT, KC.BSPC), KC.DEL),
 ]
-# fmt:off
+
+combo_layers = {
+  (1, 2): 3,
+   }
+keyboard.modules.append(Layers(combo_layers))
+
+# fmt: off
+keyboard.keymap = [
+    [  # default_layer
+        KC.ESC, KC.Q, KC.W, KC.E, KC.LT(1, KC.R), KC.T, KC.Y, KC.LT(1, KC.U), KC.I, KC.O, KC.P, KC.BSLASH,
+        KC.TAB, KC.HT(KC.A, KC.LGUI), KC.HT(KC.S, KC.LALT), KC.HT(KC.D, KC.LCTRL), KC.HT(KC.F, KC.LSFT), KC.LT(2, KC.G), KC.LT(2, KC.H), KC.HT(KC.J, KC.RSFT), KC.HT(KC.K, KC.RCTRL), KC.HT(KC.L, KC.RALT), KC.HT(KC.SCLN, KC.RGUI), KC.QUOT,
+        KC.EXCLAIM, KC.Z, KC.X, KC.C, KC.V, KC.B, KC.N, KC.M, KC.COMMA, KC.DOT, KC.QUESTION, KC.SLSH,
+        KC.F1, KC.TG(1), KC.SPC, KC.LSFT, KC.ENT, KC.BSPC, KC.TG(2), KC.LGUI
+    ],
+    [  # lower_layer
+        KC.ESC, KC.SLSH, KC.N7, KC.N8, KC.N9, KC.PLUS, KC.F3, KC.F4, KC.UP, KC.F5, KC.F6, KC.F7,
+        KC.CIRC, KC.ASTR, KC.N4, KC.N5, KC.N6, KC.DOT, KC.EQL, KC.LEFT, KC.DOWN, KC.RIGHT, KC.F9, KC.F10,
+        KC.TO(0), KC.N0, KC.N1, KC.N2, KC.N3, KC.MINS, KC.COMMA, KC.HOME, KC.PGDN, KC.END, KC.PGUP, KC.F12,
+        KC.F1, KC.TG(1), KC.SPC, KC.LSFT, KC.ENT, KC.BSPC, KC.TG(2), KC.F2
+    ],
+    [  # raise_layer
+        KC.ESC, _______, _______, KC.BSLASH, KC.SLSH, KC.LSFT(KC.N9), KC.EXCLAIM, KC.AMP, KC.PIPE, KC.BRIGHTNESS_DOWN, KC.BRIGHTNESS_UP, KC.AUDIO_VOL_UP,
+        KC.TAB, KC.CIRC, KC.LCBR, KC.LPRN, KC.LBRC, KC.HASH, KC.TILDE, KC.RBRC, KC.RPRN, KC.RCBR, KC.MINS, KC.AUDIO_VOL_DOWN,
+        KC.TO(0), _______, _______, KC.PERC, KC.DOLLAR, KC.UNDS, KC.GRAVE, KC.AT, KC.EQL, _______, KC.TO(3), KC.AUDIO_MUTE,
+        KC.F1, KC.TG(1), KC.SPC, KC.LSFT, KC.ENT, KC.BSPC, KC.TG(2), KC.F2
+    ],
+    [  # adjust_layer
+        KC.ESC, KC.SYS_RESET, _______, _______, KC.BOOTLOADER, _______, _______, _______, KC.UP, KC.SCLK, KC.PAUSE, _______,
+        KC.BT_SEL(0), KC.BT_SEL(1), KC.BT_SEL(2), KC.BT_SEL(3), KC.BT_SEL(4), KC.BT_CLR, _______, KC.LEFT, KC.DOWN, KC.RIGHT, _______, _______,
+        KC.TO(0), _______, _______, _______, _______, _______, _______, _______, _______, _______, KC.END, KC.PGDN,
+        _______, KC.TO(0), KC.UNDERSCORE, KC.LSFT, KC.ENT, KC.BSPC, KC.TO(0), _______
+    ],
+]
+
+encoder_handler.map = [ ((KC.UP, KC.DOWN),), # Layer 1
+                        (( KC.LCTRL(KC.EQUAL),  KC.LCTRL(KC.MINUS)),), # Layer 2
+                        ((KC.AUDIO_VOL_DOWN, KC.AUDIO_VOL_UP),), # Layer 3
+                        ((KC.UP, KC.DOWN),), # Layer 4
+                      ]
+
+# fmt:on
 
 if __name__ == '__main__':
     keyboard.go()
