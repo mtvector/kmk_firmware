@@ -23,7 +23,7 @@ keyboard.extensions.append(MediaKeys())
 
 encoder_handler.pins = (
     # reversed direction encoder with no button handling and divisor of 2
-    (pins[6], pins[7], None, True, 2,), # encoder #2
+    (pins[4], pins[5], None, True, 2,), # encoder #2
     )
 
 # Cleaner key names
@@ -65,10 +65,10 @@ keyboard.keymap = [
         KC.F1, KC.TG(1), KC.SPC, KC.LSFT, KC.ENT, KC.BSPC, KC.TG(2), KC.F2
     ],
     [  # adjust_layer
-        KC.ESC, KC.SYS_RESET, _______, _______, KC.BOOTLOADER, _______, _______, _______, KC.UP, KC.SCLK, KC.PAUSE, _______,
-        KC.BT_SEL(0), KC.BT_SEL(1), KC.BT_SEL(2), KC.BT_SEL(3), KC.BT_SEL(4), KC.BT_CLR, _______, KC.LEFT, KC.DOWN, KC.RIGHT, _______, _______,
-        KC.TO(0), _______, _______, _______, _______, _______, _______, _______, _______, _______, KC.END, KC.PGDN,
-        _______, KC.TO(0), KC.UNDERSCORE, KC.LSFT, KC.ENT, KC.BSPC, KC.TO(0), _______
+        KC.RELOAD, KC.RESET, KC.BT_CLEAR_BONDS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC.UP, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC.BT_PREV_CONN, KC.BT_NEXT_CONN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC.LEFT, KC.DOWN, KC.RIGHT, XXXXXXX, XXXXXXX,
+        KC.TO(0), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, KC.TO(0), KC.SPC, KC.LSFT, KC.ENT, KC.BSPC, KC.TO(0), _______
     ],
 ]
 
