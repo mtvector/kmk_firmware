@@ -1,8 +1,8 @@
 import board
 
 pinout = [
-    board.P0_06,#TX/D1
-    board.P0_08,#RX/D0
+    board.TX,#TX/D1/P0_06
+    board.RX,#RX/D0/P0_08
     None,  # GND
     None,  # GND
     board.P0_17,#SDA/D2

@@ -20,6 +20,7 @@ AMPY_DELAY ?= 1.5
 PIPENV ?= $(shell which pipenv 2>/dev/null)
 
 MPY_CROSS ?= $(shell which mpy-cross 2>/dev/null)
+MPY_CROSS_VERSION ?= $(shell $(MPY_CROSS) --version 2>/dev/null)
 MPY_FLAGS ?= '-O2'
 MPY_SOURCES ?= 'kmk/'
 MPY_TARGET_DIR ?= .compiled
@@ -38,7 +39,7 @@ compile-check:
 	@false
 else
 compile-check: $(PY_KMK_TREE:%.py=$(MPY_TARGET_DIR)/%.mpy)
-	@echo "===> Compiling all py files to mpy with flags $(MPY_FLAGS)"
+	@echo "===> Compiling all py files to mpy with flags $(MPY_FLAGS) and $(MPY_CROSS_VERSION)"
 $(MPY_TARGET_DIR)/%.mpy: %.py
 	@mkdir -p $(dir $@)
 	@$(MPY_CROSS) $(MPY_FLAGS) $? -o $@
