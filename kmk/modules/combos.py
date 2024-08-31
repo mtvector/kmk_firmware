@@ -4,7 +4,7 @@ except ImportError:
     pass
 from micropython import const
 
-from kmk.keys import Key, make_key
+from kmk.keys import Key, make_key, ModifierKey
 from kmk.kmk_keyboard import KMKKeyboard
 from kmk.modules import Module
 from kmk.utils import Debug
@@ -82,7 +82,7 @@ class Chord(Combo):
         else:
             return False
 
-
+        
 class Sequence(Combo):
     fast_reset = True
     per_key_timeout = True
