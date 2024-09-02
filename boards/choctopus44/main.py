@@ -21,8 +21,9 @@ combos = Combos()
 encoder_handler = EncoderHandler()
 tapdance = TapDance()
 
-holdtap.tap_time = 250
+holdtap.tap_time = 200
 holdtap.prefer_hold = False
+holdtap.tap_interrupted = True
 
 keyboard.modules = [layers, combos, holdtap, mouse_key,encoder_handler,tapdance]
 keyboard.extensions.append(MediaKeys())
@@ -32,7 +33,7 @@ encoder_handler.pins = (
     (pins[4], pins[5], None, False, 2,), # encoder #2
     )
 
-# Cleaner key names
+# Cleaner key name
 _______ = KC.TRNS
 XXXXXXX = KC.NO
 
