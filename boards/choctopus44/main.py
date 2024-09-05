@@ -61,6 +61,8 @@ combos.combos = [
     Chord((KC.C,KC.V),KC.LCTRL(KC.C)),
     Chord((KC.V,KC.B),KC.LCTRL(KC.V)),
     Chord((KC.C,KC.V,KC.B),KC.LCTRL(KC.LSFT(KC.V))),
+    Chord((KC.Q,KC.W),KC.ESC),
+    Chord((KC.A,KC.S),KC.TAB),
 ]
 
 
@@ -72,10 +74,10 @@ keyboard.modules.append(Layers(combo_layers))
 # fmt: off
 keyboard.keymap = [
     [  # default_layer
-        KC.ESC, KC.Q, KC.W, KC.E, KC.LT(1, KC.R), KC.T, KC.Y, KC.LT(1, KC.U), KC.I, KC.O, KC.P, KC.BSLASH,
+        KC.ESC, KC.Q, KC.W, KC.E, KC.R, KC.T, KC.Y, KC.LT(1, KC.U), KC.I, KC.O, KC.P, KC.BSLASH,
         KC.TAB] + hml0 + [KC.LT(2, KC.G), KC.LT(2, KC.H)] + hmr0 +[ KC.QUOT,
         #KC.TILDE,KC.EXCLAIM, KC.Z, KC.X, KC.C, KC.V, KC.B, KC.N, KC.M, KC.COMMA, KC.DOT, KC.SLSH,
-        KC.EXCLAIM, KC.Z, KC.X, KC.C, KC.V, KC.B, KC.N, KC.M, KC.COMMA, KC.DOT, KC.SLSH,KC.TILDE,
+        KC.EXCLAIM, KC.Z, KC.X, KC.C, KC.LT(1, KC.V), KC.B, KC.N, KC.LT(1, KC.M), KC.COMMA, KC.DOT, KC.SLSH,KC.TILDE,
         KC.F1, KC.TG(2), KC.SPC, KC.TD(KC.TO(1),KC.TO(2),KC.TO(3)), KC.ENT, KC.BSPC, KC.TG(1), KC.LGUI
     ],
     [  # lower_layer
@@ -85,9 +87,9 @@ keyboard.keymap = [
         KC.F1, KC.TG(2), KC.SPC, KC.TD(KC.TO(0),KC.TO(2),KC.TO(3)), KC.ENT, KC.BSPC, KC.TG(1), KC.TO(3)
     ],
     [  # raise_layer
-        KC.ESC, KC.GRAVE,XXXXXXX, KC.BSLASH, KC.SLSH, KC.LSFT(KC.N9), KC.EXCLAIM, KC.AMPR, KC.PIPE, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC.TAB, KC.HASH, KC.LCBR, KC.LPRN, KC.LBRC, KC.HASH, KC.CIRC, KC.RBRC, KC.RPRN, KC.RCBR, KC.MINS, KC.EQL,
-        KC.TO(0), XXXXXXX, XXXXXXX, KC.PERC, KC.DOLLAR, KC.UNDS, XXXXXXX, KC.AT, KC.ASTR, XXXXXXX, KC.TILDE, XXXXXXX,
+        KC.ESC, KC.GRAVE,KC.PERC, KC.BSLASH, KC.SLSH, KC.LSFT(KC.N9), KC.EXCLAIM, KC.AMPR, KC.PIPE, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC.TAB, KC.HASH, KC.LCBR, KC.LPRN, KC.LBRC, KC.HASH, KC.EQL, KC.RBRC, KC.RPRN, KC.RCBR, KC.CIRC, XXXXXXX,
+        KC.TO(0), XXXXXXX, XXXXXXX, KC.DOLLAR, KC.UNDS, KC.MINS, KC.TILDE, KC.AT, KC.ASTR, XXXXXXX, XXXXXXX, XXXXXXX,
         KC.F1, KC.TG(2), KC.SPC,KC.TD(KC.TO(0),KC.TO(1),KC.TO(3)), KC.ENT, KC.BSPC, KC.TG(1), KC.TO(3)
     ],
     [  # adjust_layer
